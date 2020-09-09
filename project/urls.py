@@ -16,9 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.urls import include, path
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('answers/', include('answers.urls')),
+    path('questions/', include('questions.urls')),
+    path('users/', include('user.urls')),
+    path('login/', RedirectView.as_view(url="users/login/", permanent=False)),
+    path('', RedirectView.as_view(url='questions/list/', permanent=False)),
 ]
 
 if settings.DEBUG:
