@@ -11,7 +11,7 @@ def create_user(request):
         form = QuestionBoxUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect(to="list_questions")
+            return redirect(to="list_question")
     return render(request, "users/create_user.html", {"form": form})
 
 
@@ -23,7 +23,7 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect(to="list_questions")
+            return redirect(to="list_question")
         else:
             retry = True
     return render(request, "users/login_user.html", {"retry": retry})
@@ -31,4 +31,4 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    return redirect("list_questions")
+    return redirect("list_question")

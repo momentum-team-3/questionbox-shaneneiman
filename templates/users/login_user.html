@@ -7,21 +7,21 @@
 <p id="invalid_login">Invalid Username or Password</p>
 {% endif %}
 
+<p>
 <form method="POST">
     {% csrf_token %}
     <p>
-        <div>
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username">
-        </div>
-        <div>
-            <label for="password">Password</label>
-            <input type="text" id="password" name="password">
-        </div>
+        <label for="username">username</label>
+        <input type="text" id="username" name="username">
+    </p>
+    <p>
+        <label for="password">password</label>
+        <input type="text" id="password" name="password">
     </p>
     <div>
         <button type="submit">Login</button>
     </div>
 </form>
+</p>
 <p><a href="{% url 'create_user' %}">Click here to make an account</a></p>
 {% endblock %}
