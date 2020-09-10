@@ -1,0 +1,14 @@
+{% extends "view_question.html" %}
+
+{% block content %}
+{% for answer in answers %}
+<div>
+    <h3>{{ answer.answer_of }}</h3>
+    <p>{{ answer.answer_body }}</p>
+    <p>{{ answer.date_added }}</p> 
+</div>
+<p>
+    <a href="{% url 'view_answer' answer.pk %}">View Answer</a>
+</p><br>
+{% endfor %}
+{% endblock %}

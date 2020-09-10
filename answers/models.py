@@ -7,7 +7,7 @@ class Answer(Model):
     answer_body = TextField(null=True, blank=True)
     date_added = DateTimeField(auto_now_add=True)
     answer_of = ForeignKey(User, on_delete=CASCADE, null=False, blank=False)
-    answer_to = ForeignKey(Question, on_delete=CASCADE, null=False, blank=False)
+    answer_to = ForeignKey(Question, on_delete=CASCADE, null=False, blank=False, related_name="answers")
     correct_answer = ManyToManyField(to=User, related_name="correct_answers", blank=True)
 
  

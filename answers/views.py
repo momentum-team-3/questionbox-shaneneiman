@@ -1,21 +1,58 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Answer
+from .forms import AnswerForm
 
 # Create your views here.
 def add_answer(request):
-    pass
+    if request.method == "GET":
+        form = AnswerForm()
+    else:
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.answer_of = request.user
+            answer.answer_to = request.question
+            answer.save()
+            return redirect("list_answer")
+    return render(request, "answers/add_answer.html", {
+        "form": form
+    })
+
+def delete_answer(request, pk):
+    answer = get_object_or_404(Answer, pk=pk)
+    if request.method == "POST":
+        answer.delete()
+        return redirect("list_answer")
+    return render(request, "answers/delete_answer.html", {
+        "answer": answer
+    })
 
 
-def delete_answer(request):
-    pass
+def edit_answer(request, pk):
+    answer = get_object_or_404(Answer, pk=pk)
+    if request.method == "GET":
+        form = AnswerForm(answer)
+    else:
+        form = AnswerForm(request.POST, answer)
+        if form.is_valid:
+            form.save()
+            return redirect('list_answer')
+    return render(request, "answers/edit_answer.html", {
+        "form": form,
+        "answer": answer
+    })
 
-
-def edit_answer(request):
-    pass
 
 
 def list_answer(request):
-    pass
+    answers = request.question.answers.all()
+    return render(request, "answers/list_answer.html", {
+        "answers": answers
+    })
 
 
-def view_answer(request):
-    pass
+def view_answer(request, pk):
+    answer = get_object_or_404(Answer, pk=pk)
+    return render(request, "answers/view_answer.html", {
+        "answer": answer
+    })

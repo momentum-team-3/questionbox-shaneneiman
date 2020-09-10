@@ -52,7 +52,7 @@ def search_question_results(request):
 
 
 def view_question(request, pk):
-    question = Question.objects.get(pk=pk)
+    question = get_object_or_404(Question, pk=pk)
     return render(request, "questions/view_question.html", {
         "question": question
     })
