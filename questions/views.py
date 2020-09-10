@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Question
 from .forms import QuestionForm
+from answers.models import Answer
+from answers.forms import AnswerForm
 
 # Create your views here.
 def ask_question(request):
@@ -18,8 +20,8 @@ def ask_question(request):
     })
 
 
-def delete_question(request, pk):
-    question = get_object_or_404(Question, pk=pk)
+def delete_question(request, question_pk):
+    question = get_object_or_404(Question, pk=question_pk)
     if request.method == "POST":
         question.delete()
         return redirect("list_question")
@@ -51,8 +53,12 @@ def search_question_results(request):
     pass
 
 
-def view_question(request, pk):
-    question = get_object_or_404(Question, pk=pk)
+def view_question(request, question_pk):
+    question = get_object_or_404(Question, pk=question_pk)
+    answers = question.answers.all()
     return render(request, "questions/view_question.html", {
-        "question": question
+        "question": question,
+        "answers": answers,
+        "AnswerForm()": AnswerForm(),
+        "question_pk": question_pk
     })
