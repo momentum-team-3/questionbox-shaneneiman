@@ -30,6 +30,11 @@
     <p>{{ answer.answer_body }}</p>
     <p>{{ answer.date_added }}</p> 
 </div><br>
+<p>
+    {% if request.user == question.question_of %}
+    <a href="{% url 'delete_answer' answer_pk=answer.pk %}">Delete Answer</a>
+    {% endif %}
+</p>
 {% endfor %}
 </p>
 {% endblock %}

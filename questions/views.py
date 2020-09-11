@@ -25,7 +25,7 @@ def delete_question(request, question_pk):
     if request.method == "POST":
         question.delete()
         return redirect("list_question")
-    return render(request, "questions/delete_question", {
+    return render(request, "questions/delete_question.html", {
         "question": question
     })
 

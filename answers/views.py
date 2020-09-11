@@ -15,20 +15,20 @@ def add_answer(request, question_pk):
             answer.answer_of = request.user
             answer.answer_to = question
             answer.save()
-            return redirect("view_question", pk=pk)
+            return redirect("view_question", question_pk=question_pk)
     return render(request, "answers/add_answer.html", {
         "form": form,
-        "answer": answer,
-        "question": question
+        "question_pk": question_pk
     })
 
 def delete_answer(request, answer_pk):
     answer = get_object_or_404(Answer, pk=answer_pk)
     if request.method == "POST":
+        question = get_object_or_404(Question, pk=question_pk)
         answer.delete()
-        return redirect("list_answer")
+        return redirect("view_question", question_pk=question_pk)
     return render(request, "answers/delete_answer.html", {
-        "answer": answer
+        "answer": answer,
     })
 
 
