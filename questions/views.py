@@ -59,6 +59,6 @@ def view_question(request, question_pk):
     return render(request, "questions/view_question.html", {
         "question": question,
         "answers": answers,
-        "AnswerForm()": AnswerForm(),
+        "AnswerForm": AnswerForm,
         "question_pk": question_pk
     })

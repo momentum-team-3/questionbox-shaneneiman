@@ -15,7 +15,7 @@
         <div>
             <form action="{% url 'add_answer' question_pk=question.pk %}" method="POST">
                 {% csrf_token %}
-                {{ form.as_p }}
+                {{ AnswerForm.as_p }}
                 <div>
                     <button type="submit"> Add Answer</button>
                 </div>
@@ -24,6 +24,7 @@
     {% endif %}
 </p>
 <p>
+    <h2>Answers</h2><br>
     {% for answer in answers %}
 <div>
     <h3>{{ answer.answer_of }}</h3>

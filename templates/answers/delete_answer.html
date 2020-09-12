@@ -4,7 +4,7 @@
 <h2>Delete Note</h2>
 
 <p>
-    <form action="{% url 'delete_answer' answer.pk %}" method="POST">
+    <form action="{% url 'delete_answer' answer_pk=answer.pk %}" method="POST">
         {% csrf_token %}
         <p>Do you want to delete this question?</p>
         <div>

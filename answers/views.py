@@ -18,13 +18,14 @@ def add_answer(request, question_pk):
             return redirect("view_question", question_pk=question_pk)
     return render(request, "answers/add_answer.html", {
         "form": form,
-        "question_pk": question_pk
+        "question_pk": question_pk,
     })
 
 def delete_answer(request, answer_pk):
     answer = get_object_or_404(Answer, pk=answer_pk)
     if request.method == "POST":
-        question = get_object_or_404(Question, pk=question_pk)
+        question = answer.answer_to.get()
+        question_pk = question.pk
         answer.delete()
         return redirect("view_question", question_pk=question_pk)
     return render(request, "answers/delete_answer.html", {
