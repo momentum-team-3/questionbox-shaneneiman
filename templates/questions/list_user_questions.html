@@ -2,13 +2,13 @@
 
 {% block content %}
 {% for question in questions %}
-<div>
-    <h3>{{ question.question_title }}</h3>
-    <p>{{ question.question_body }}</p>
-    <p>{{ question.date_added }}</p>
+<div class ="flex-item">
+    <h3 class="title">{{ question.question_title }}</h3>
+    <p class="text">{{ question.question_body }}</p>
+    <p class="text">{{ question.date_added }}</p>
+    <p>
+        <a class="link" href="{% url 'view_question' question.pk %}">View Question</a>
+    </p>
 </div>
-<p>
-    <a href="{% url 'view_question' question.pk %}">View Question</a>
-</p><br>
 {% endfor %}
 {% endblock %}

@@ -1,41 +1,44 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div>
-    <h3>{{ question.question_title }}</h3>
-    <p>{{ question.question_of }}</p>
-    <p>{{ question.question_body }}</p>
-    <p>{{ question.date_added }}</p>
+<div class="flex-item">
+    <div>
+        <h3 class="title">{{ question.question_title }}</h3>
+        <p class="text">{{ question.question_of }}</p>
+        <p class="text">{{ question.question_body }}</p>
+        <p class="text">{{ question.date_added }}</p>
+    </div>
+    <p>
+        {% if request.user.is_authenticated and request.user == question.question_of %}
+            <a class="link" href="{% url 'delete_question' question_pk=question.pk %}">Delete</a>
+        {% else %}
+           <a class="link" href="{% url 'add_answer' question_pk=question.pk %}">Add an Answer</a> 
+            <div>
+                <form action="{% url 'add_answer' question_pk=question.pk %}" method="POST">
+                    {% csrf_token %}
+                    {{ AnswerForm.as_p }}
+                    <div>
+                        <button type="submit"> Add Answer</button>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+    </p>
+    <p>
+        <h2 class="title">Answers</h2><br>
+        {% for answer in answers %}
+    <div class="flex-item">
+        <h3 class="title">{{ answer.answer_of }}</h3>
+        <p class="text">{{ answer.answer_body }}</p>
+        <p class="text">{{ answer.date_added }}</p> 
+        <p>
+            {% if request.user == question.question_of %}
+            <a class="link" href="{% url 'delete_answer' answer_pk=answer.pk %}">Delete Answer</a>
+            {% endif %}
+        </p>
+    </div>
+    {% endfor %}
+    </p>
 </div>
-<p>
-    {% if request.user.is_authenticated and request.user == question.question_of %}
-        <a href="{% url 'delete_question' question_pk=question.pk %}">Delete</a>
-    {% else %}
-       <a href="{% url 'add_answer' question_pk=question.pk %}">Add an Answer</a> 
-        <div>
-            <form action="{% url 'add_answer' question_pk=question.pk %}" method="POST">
-                {% csrf_token %}
-                {{ AnswerForm.as_p }}
-                <div>
-                    <button type="submit"> Add Answer</button>
-                </div>
-            </form>
-        </div>
-    {% endif %}
-</p>
-<p>
-    <h2>Answers</h2><br>
-    {% for answer in answers %}
-<div>
-    <h3>{{ answer.answer_of }}</h3>
-    <p>{{ answer.answer_body }}</p>
-    <p>{{ answer.date_added }}</p> 
-</div><br>
-<p>
-    {% if request.user == question.question_of %}
-    <a href="{% url 'delete_answer' answer_pk=answer.pk %}">Delete Answer</a>
-    {% endif %}
-</p>
-{% endfor %}
-</p>
+
 {% endblock %}

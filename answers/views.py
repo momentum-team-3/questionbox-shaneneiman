@@ -1,9 +1,14 @@
+#Django Imports
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+
+# Project file imports
 from .models import Answer
 from questions.models import Question
 from .forms import AnswerForm
 
 # Create your views here.
+@login_required(login_url="login_user")
 def add_answer(request, question_pk):
     if request.method == "GET":
         form = AnswerForm()
@@ -21,6 +26,8 @@ def add_answer(request, question_pk):
         "question_pk": question_pk,
     })
 
+
+@login_required(login_url="login_user")
 def delete_answer(request, answer_pk):
     answer = get_object_or_404(Answer, pk=answer_pk)
     if request.method == "POST":

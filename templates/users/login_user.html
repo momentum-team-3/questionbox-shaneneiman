@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Login</h2>
+<div class="flex-item">
+    <h2 class="title">Login</h2>
 
 {% if retry %}
-<p id="invalid_login">Invalid Username or Password</p>
+<p id="invalid-login">Invalid Username or Password</p>
 {% endif %}
-
+</div>
 <p>
-<form method="POST">
+<form class="flex-item" method="POST">
     {% csrf_token %}
     <p>
         <label for="username">Username</label>
@@ -23,5 +24,5 @@
     </div>
 </form>
 </p>
-<p><a href="{% url 'create_user' %}">Click here to make an account</a></p>
+<p><a class="link" href="{% url 'create_user' %}">Click here to make an account</a></p>
 {% endblock %}

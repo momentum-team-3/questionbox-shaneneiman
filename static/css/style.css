@@ -1,0 +1,82 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    border: 0;
+    font-family: arial;
+}
+
+header {
+    background-size: cover;
+    background-color: rgba(204, 196, 159, 0.863);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    
+}
+
+body {
+    background-color: rgb(72, 92, 128);
+    padding: 20 px;
+}
+
+nav > a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 10px;
+}
+
+nav > a:hover {
+    font-weight: bold;
+}
+
+button {
+    background-color: rgba(204, 196, 159, 0.863);
+    color: rgb(255, 255, 255);
+    padding: 10px;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+}
+
+.flex-item {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 100%;
+    padding: 10px;
+    border: 1px solid rgb(255, 255, 255);
+}
+
+.title {
+    font-weight: bold;
+    font-size: larger;
+    text-transform: uppercase;
+    color: rgb(255, 255, 255);
+}
+
+.link {
+    font-size: smaller;
+    color: rgb(255, 255, 255);
+}
+
+.link:hover {
+    font-weight: bold;
+    color: rgba(204, 196, 159, 0.863);
+}
+
+.text {
+    color: rgb(255, 255, 255);
+}
+
+#invalid-login {
+    font-weight: bold;
+    color: rgb(255, 0, 0)
+}
