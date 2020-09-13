@@ -12,13 +12,16 @@
         {% if request.user.is_authenticated and request.user == question.question_of %}
             <a class="link" href="{% url 'delete_question' question_pk=question.pk %}">Delete</a>
         {% else %}
-           <a class="link" href="{% url 'add_answer' question_pk=question.pk %}">Add an Answer</a> 
-            <div>
+            <button id="add-answer-button">Add an Answer!</button>
+            <!--
+            <a class="link" href="{% url 'add_answer' question_pk=question.pk %}">Add an Answer</a> 
+            -->
+            <div id="answer-form" class="hidden">
                 <form action="{% url 'add_answer' question_pk=question.pk %}" method="POST">
                     {% csrf_token %}
                     {{ AnswerForm.as_p }}
                     <div>
-                        <button type="submit"> Add Answer</button>
+                        <button type="submit"> Sumbit Your Answer!</button>
                     </div>
                 </form>
             </div>
