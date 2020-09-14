@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="title" Search Questions></h2>
+<div class="flex-item">
+    <form action="{% url 'search_question' %}" method="GET">
+        <input type="search" name="q" placeholder="Seach all questions" value="{{query}}">
+        <p>
+            <button type="submit">Search</button>
+        </p>
+    </form>
+</div>
+
+
+{% if questions is not None %}
+    {% for question in questions %}
+        <div class="flex-item">
+            <p class="text">{{ question.question_title }} </p>
+            <a class="link" href="{% url 'view_question' question.pk %}">View Question</a>
+        </div>
+    {% empty %}
+        <p class="text">There are no questions matching your search</p>
+    {% endfor %}
+{% endif %}
+{% endblock %}

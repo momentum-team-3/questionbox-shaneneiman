@@ -3,7 +3,17 @@
 {% block content %}
 <div class="flex-item">
     <div>
-        <h3 class="title">{{ question.question_title }}</h3>
+        <h3 class="title">
+            {{ question.question_title }}
+            <a id="toggle-favorite" data-question-id="{{ question.pk }}" class="link" href="#">
+            {% if is_favorite_question == True %}
+                &#9733
+            {% else %}
+                &#9734
+            {% endif %}
+            </a>
+        </h3>
+        <h4 class="text">Number of favorites: {{ question.num_favorites }}</h4>
         <p class="text">{{ question.question_of }}</p>
         <p class="text">{{ question.question_body }}</p>
         <p class="text">{{ question.date_added }}</p>
@@ -31,17 +41,40 @@
         <h2 class="title">Answers</h2><br>
         {% for answer in answers %}
     <div class="flex-item">
-        <h3 class="title">{{ answer.answer_of }}</h3>
+        <h3 
+            class="title">{{ answer.answer_of }}
+
+        </h3>
         <p class="text">{{ answer.answer_body }}</p>
         <p class="text">{{ answer.date_added }}</p> 
         <p>
-            {% if request.user == question.question_of %}
+            <!--{% if request.user == question.question_of %}
             <a class="link" href="{% url 'delete_answer' answer_pk=answer.pk %}">Delete Answer</a>
-            {% endif %}
+            {% endif %}-->
         </p>
     </div>
     {% endfor %}
     </p>
 </div>
+
+
+<script>
+    const toggleFavoriteLink = document.querySelector("#toggle-favorite")
+toggleFavoriteLink.addEventListener("click", function (e) {
+    e.preventDefault()
+    const questionId = toggleFavoriteLink.dataset.questionId
+    fetch(`/questions/${questionId}/favorite_question/`, {
+        method: "POST"
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.favorite_question) {
+            toggleFavoriteLink.innerHTML = '&#9733;'
+        } else {
+            toggleFavoriteLink.innerHTML = '&#9734;'
+        }
+    })
+})
+</script>
 
 {% endblock %}

@@ -1,4 +1,5 @@
-//Event Handler to show add answer form
+//Event Handlers
+//show add answer form on view_question
 function makeAnswerFormVisable () {
     let answerFormSection = document.querySelector("#answer-form")
     let addAnswerButton = document.querySelector("#add-answer-button")
@@ -6,6 +7,31 @@ function makeAnswerFormVisable () {
     addAnswerButton.classList.add("hidden")
 }
 
-//Event Listener to shower show add answer form
-let newNoteNav = document.querySelector("#add-answer-button")
-newNoteNav.addEventListener("click", makeAnswerFormVisable)
+//toggle favorite question
+/*
+function toggleFavQuestion () {
+    const questionId = toggleFavoriteLink.dataset.questionId
+    fetch(`/questions/${questionId}/favorite_question/`, {
+        method ="POST"
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.favorite_question) {
+            toggleFavoriteLink.innerHTML = '&#9733;'
+        } else {
+            toggleFavoriteLink.innerHTML = '&#9734;'
+        }
+    })
+}
+*/
+
+//Event Listeners 
+//show add answer form on view_question
+let addAnswer = document.querySelector("#add-answer-button")
+addAnswer.addEventListener("click", makeAnswerFormVisable)
+
+/*
+//toggle favorites
+const toggleFavoriteLink = document.querySelector("#toggle-favorite")
+toggleFavoriteLink.addEventListener("click", toggleFavQuestion)
+*/
